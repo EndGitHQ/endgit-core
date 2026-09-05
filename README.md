@@ -1,0 +1,1 @@
+# endgit-core
