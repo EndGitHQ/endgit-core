@@ -1,0 +1,28 @@
+basePath: /api/v1
+definitions:
+  handlers.HealthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Backend API for EndGit services.
+  title: EndGit API
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      description: Returns service health status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.HealthResponse'
+      summary: Service health check
+      tags:
+      - health
+swagger: "2.0"
