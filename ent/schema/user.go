@@ -68,13 +68,15 @@ func (User) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("plugins", Plugin.Type).
 			Ref("author"),
+		edge.From("accounts", Account.Type).
+			Ref("user"),
+		edge.From("sessions", Session.Type).
+			Ref("user"),
 
 		// TODO: uncomment once other schemas are made
 		// - reviews Review[]
 		// - reports Report[]
 		// - ratings Rating[]
 		// - pluginComments PluginComment[]
-		// - sessions Session[]
-		// - accounts Account[]
 	}
 }
