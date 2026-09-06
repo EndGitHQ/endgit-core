@@ -1,10 +1,63 @@
 basePath: /api/v1
 definitions:
+  handlers.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
   handlers.HealthResponse:
     properties:
       status:
         example: ok
         type: string
+    type: object
+  handlers.ListPluginsResponse:
+    properties:
+      count:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/handlers.PluginListItem'
+        type: array
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  handlers.PluginListItem:
+    properties:
+      authorId:
+        type: string
+      description:
+        type: string
+      displayName:
+        type: string
+      downloads:
+        type: integer
+      id:
+        type: string
+      isFeatured:
+        type: boolean
+      isVerified:
+        type: boolean
+      keywords:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      pluginType:
+        type: string
+      slug:
+        type: string
+      stars:
+        type: integer
+      status:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
     type: object
 info:
   contact: {}
@@ -25,4 +78,34 @@ paths:
       summary: Service health check
       tags:
       - health
+  /plugins:
+    get:
+      description: Returns a paginated list of plugins.
+      parameters:
+      - description: Number of items (default 20, max 100)
+        in: query
+        name: limit
+        type: integer
+      - description: Pagination offset (default 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.ListPluginsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: List plugins
+      tags:
+      - plugins
 swagger: "2.0"
