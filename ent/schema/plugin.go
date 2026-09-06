@@ -98,12 +98,14 @@ func (Plugin) Edges() []ent.Edge {
 			Field("authorId").
 			Unique().
 			Required(),
+		edge.From("versions", Version.Type).
+			Ref("plugin"),
+		edge.From("builds", Build.Type).
+			Ref("plugin"),
 		edge.From("analytics", PluginAnalytics.Type).
 			Ref("plugin"),
 
 		// TODO: we dont have the other schemas yet
-		// - versions Version[]
-		// - builds Build[]
 		// - autoChecks AutoCheck[]
 		// - reviews Review[]
 		// - reports Report[]
