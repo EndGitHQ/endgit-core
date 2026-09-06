@@ -4,6 +4,7 @@ go 1.27.0
 
 require (
 	entgo.io/ent v0.14.6
+	github.com/andybalholm/brotli v1.2.3
 	github.com/labstack/echo/v5 v5.3.1
 	github.com/lib/pq v1.12.3
 	github.com/lucsky/cuid v1.2.1
