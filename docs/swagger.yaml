@@ -154,6 +154,8 @@ definitions:
         type: string
       downloads:
         type: integer
+      iconUrl:
+        type: string
       id:
         type: string
       isFeatured:
@@ -172,12 +174,6 @@ definitions:
         type: string
       stars:
         type: integer
-      status:
-        type: string
-      tags:
-        items:
-          type: string
-        type: array
     type: object
 info:
   contact: {}

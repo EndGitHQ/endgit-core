@@ -397,6 +397,9 @@ const docTemplate = `{
                 "downloads": {
                     "type": "integer"
                 },
+                "iconUrl": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -423,15 +426,6 @@ const docTemplate = `{
                 },
                 "stars": {
                     "type": "integer"
-                },
-                "status": {
-                    "type": "string"
-                },
-                "tags": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         }

@@ -22,12 +22,11 @@ type PluginListItem struct {
 	Slug        string   `json:"slug"`
 	DisplayName string   `json:"displayName"`
 	Description string   `json:"description"`
-	Tags        []string `json:"tags"`
+	IconURL     *string  `json:"iconUrl,omitempty"`
 	Keywords    []string `json:"keywords"`
 	PluginType  string   `json:"pluginType"`
 	Downloads   int      `json:"downloads"`
 	Stars       int      `json:"stars"`
-	Status      string   `json:"status"`
 	IsVerified  bool     `json:"isVerified"`
 	IsFeatured  bool     `json:"isFeatured"`
 	AuthorID    string   `json:"authorId"`
@@ -121,12 +120,11 @@ func ListPlugins(c *echo.Context) error {
 			Slug:        p.Slug,
 			DisplayName: p.DisplayName,
 			Description: p.Description,
-			Tags:        p.Tags,
+			IconURL:     p.IconUrl,
 			Keywords:    p.Keywords,
 			PluginType:  p.PluginType.String(),
 			Downloads:   p.Downloads,
 			Stars:       p.Stars,
-			Status:      p.Status.String(),
 			IsVerified:  p.IsVerified,
 			IsFeatured:  p.IsFeatured,
 			AuthorID:    p.AuthorId,
