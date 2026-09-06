@@ -15,9 +15,50 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/builds/{id}": {
+            "get": {
+                "description": "Returns details for a build by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "builds"
+                ],
+                "summary": "Build details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Build ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.BuildDetailsResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
-                "description": "Returns service health status.",
+                "description": "Returns service health status and runtime metadata.",
                 "produces": [
                     "application/json"
                 ],
@@ -80,9 +121,127 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/plugins/{slug}": {
+            "get": {
+                "description": "Returns details for a plugin by slug.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "plugins"
+                ],
+                "summary": "Plugin details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Plugin slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.PluginDetailsResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "handlers.BuildDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "artifactSize": {
+                    "type": "integer"
+                },
+                "artifactSizeLinux": {
+                    "type": "integer"
+                },
+                "artifactSizeWin": {
+                    "type": "integer"
+                },
+                "artifactUrl": {
+                    "type": "string"
+                },
+                "artifactUrlLinux": {
+                    "type": "string"
+                },
+                "artifactUrlWin": {
+                    "type": "string"
+                },
+                "branch": {
+                    "type": "string"
+                },
+                "buildNumber": {
+                    "type": "integer"
+                },
+                "commitHash": {
+                    "type": "string"
+                },
+                "commitMessage": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "finishedAt": {
+                    "type": "string"
+                },
+                "ghActionsRunId": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "isRelease": {
+                    "type": "boolean"
+                },
+                "linuxBuildStatus": {
+                    "type": "string"
+                },
+                "logs": {
+                    "type": "string"
+                },
+                "pluginId": {
+                    "type": "string"
+                },
+                "safeScore": {
+                    "type": "integer"
+                },
+                "scanResults": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "triggerType": {
+                    "type": "string"
+                },
+                "winBuildStatus": {
+                    "type": "string"
+                }
+            }
+        },
         "handlers.ErrorResponse": {
             "type": "object",
             "properties": {
@@ -94,9 +253,23 @@ const docTemplate = `{
         "handlers.HealthResponse": {
             "type": "object",
             "properties": {
+                "startedAt": {
+                    "type": "string"
+                },
                 "status": {
                     "type": "string",
                     "example": "ok"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "uptime": {
+                    "type": "string",
+                    "example": "1h2m3s"
+                },
+                "uptimeSeconds": {
+                    "type": "integer",
+                    "example": 3723
                 }
             }
         },
@@ -117,6 +290,95 @@ const docTemplate = `{
                 },
                 "offset": {
                     "type": "integer"
+                }
+            }
+        },
+        "handlers.PluginDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "authorId": {
+                    "type": "string"
+                },
+                "commentCount": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "downloads": {
+                    "type": "integer"
+                },
+                "iconUrl": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "isFeatured": {
+                    "type": "boolean"
+                },
+                "isVerified": {
+                    "type": "boolean"
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "license": {
+                    "type": "string"
+                },
+                "longDescription": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pluginType": {
+                    "type": "string"
+                },
+                "qualityBadge": {
+                    "type": "string"
+                },
+                "repoUrl": {
+                    "type": "string"
+                },
+                "reviewBuildId": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "stars": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "statusReason": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "trustScore": {
+                    "type": "number"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "webhookId": {
+                    "type": "string"
                 }
             }
         },
