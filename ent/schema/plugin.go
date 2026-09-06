@@ -102,15 +102,19 @@ func (Plugin) Edges() []ent.Edge {
 			Ref("plugin"),
 		edge.From("builds", Build.Type).
 			Ref("plugin"),
+		edge.From("reviews", Review.Type).
+			Ref("plugin"),
+		edge.From("reports", Report.Type).
+			Ref("plugin"),
+		edge.From("ratings", Rating.Type).
+			Ref("plugin"),
+		edge.From("comments", PluginComment.Type).
+			Ref("plugin"),
+		edge.From("autoChecks", AutoCheck.Type).
+			Ref("plugin"),
+		edge.From("moderationLogs", ModerationLog.Type).
+			Ref("plugin"),
 		edge.From("analytics", PluginAnalytics.Type).
 			Ref("plugin"),
-
-		// TODO: we dont have the other schemas yet
-		// - autoChecks AutoCheck[]
-		// - reviews Review[]
-		// - reports Report[]
-		// - ratings Rating[]
-		// - comments PluginComment[]
-		// - moderationLogs ModerationLog[]
 	}
 }
