@@ -65,6 +65,12 @@
                         "schema": {
                             "$ref": "#/definitions/handlers.HealthResponse"
                         }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.HealthUnavailableResponse"
+                        }
                     }
                 }
             }
@@ -246,23 +252,34 @@
         "handlers.HealthResponse": {
             "type": "object",
             "properties": {
-                "startedAt": {
-                    "type": "string"
+                "database": {
+                    "type": "string",
+                    "example": "ok"
                 },
                 "status": {
                     "type": "string",
                     "example": "ok"
                 },
-                "timestamp": {
-                    "type": "string"
+                "uptime": {
+                    "type": "integer",
+                    "example": 1725571200
+                }
+            }
+        },
+        "handlers.HealthUnavailableResponse": {
+            "type": "object",
+            "properties": {
+                "database": {
+                    "type": "string",
+                    "example": "not ok"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "not ok"
                 },
                 "uptime": {
-                    "type": "string",
-                    "example": "1h2m3s"
-                },
-                "uptimeSeconds": {
                     "type": "integer",
-                    "example": 3723
+                    "example": 1725571200
                 }
             }
         },

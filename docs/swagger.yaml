@@ -58,18 +58,26 @@ definitions:
     type: object
   handlers.HealthResponse:
     properties:
-      startedAt:
+      database:
+        example: ok
         type: string
       status:
         example: ok
         type: string
-      timestamp:
+      uptime:
+        example: 1725571200
+        type: integer
+    type: object
+  handlers.HealthUnavailableResponse:
+    properties:
+      database:
+        example: not ok
+        type: string
+      status:
+        example: not ok
         type: string
       uptime:
-        example: 1h2m3s
-        type: string
-      uptimeSeconds:
-        example: 3723
+        example: 1725571200
         type: integer
     type: object
   handlers.ListPluginsResponse:
@@ -218,6 +226,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handlers.HealthResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/handlers.HealthUnavailableResponse'
       summary: Service health check
       tags:
       - health
