@@ -9,5 +9,6 @@ func RegisterRoutes(e *echo.Echo) {
 	apiV1 := e.Group("/api/v1")
 
 	apiV1.GET("/health", handlers.Health)
+	apiV1.GET("/plugins", handlers.ListPlugins)
 
 }
