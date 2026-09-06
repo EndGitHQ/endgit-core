@@ -60,7 +60,7 @@ func (Plugin) Fields() []ent.Field {
 		field.Int("commentCount").
 			Default(0),
 		field.Enum("status").
-			Values("DRAFT", "PENDING_REVIEW", "PUBLISHED", "REJECTED", "ARCHIVED").
+			Values("DRAFT", "BUILDING", "BUILD_FAILED", "PENDING_REVIEW", "APPROVED", "REJECTED", "FLAGGED", "SUSPENDED").
 			Default("DRAFT"),
 		field.Text("statusReason").
 			Optional().
@@ -98,6 +98,8 @@ func (Plugin) Edges() []ent.Edge {
 			Field("authorId").
 			Unique().
 			Required(),
+		edge.From("analytics", PluginAnalytics.Type).
+			Ref("plugin"),
 
 		// TODO: we dont have the other schemas yet
 		// - versions Version[]
@@ -108,6 +110,5 @@ func (Plugin) Edges() []ent.Edge {
 		// - ratings Rating[]
 		// - comments PluginComment[]
 		// - moderationLogs ModerationLog[]
-		// - analytics PluginAnalytics[]
 	}
 }
